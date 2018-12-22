@@ -1,0 +1,33 @@
+<html>
+<h1> La liste des fsdfsdsd<%=results%></h1>
+<table>
+   <tr> 
+      <td>ligne1 colonne1</td>
+      <td>ligne1 colonne2</td>
+      <td>ligne1 colonne3</td>
+      <td>ligne1 colonne4</td>
+   </tr>
+   <tr>
+      <td>ligne2 colonne1</td>
+      <td>ligne2 colonne2</td>
+      <td>ligne2 colonne3</td>
+      <td>ligne2 colonne4</td>
+   </tr>
+</table> 
+
+<table>
+
+
+<p> <% for (let item of results.rows) {
+    %>
+<tr> <td>
+    <%= item.id %></td><td><%= item.orientation %></td>
+</tr>
+<% } %></p>
+
+
+</p>
+
+</table>
+
+</html>

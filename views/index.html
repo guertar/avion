@@ -26,10 +26,7 @@
     <button id="inscription"  type="button" class="btn btn-info">Inscription</button>
 </nav>
 
-
-
 <div class=" container-fluid  card text-white bg-info mb-3" style="max-width: 50rem;">
-
     <div class="card-body">
         <h4 class="card-title">Détails des vols</h4>
         <div id="vols" class="card-text">
@@ -37,10 +34,8 @@
         </div>
 </div>
 </div>
-
         <div   id="details" style="max-width: 20rem;">
         </div>
-
 </div>
 
     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -56,7 +51,6 @@
         socket.on('voldetails', function(message) {
             afficherDetails(message);
         })
-
 
         // AafficherLesVols
         function afficherLesVols(results) {
@@ -82,12 +76,9 @@
             $('#vols').prepend(  myTable );
         }
 
-
-
         function demanderDetails(volId) {
             socket.emit('voldetails', volId);
         }
-
         function afficherDetails(results)
         { $('#details').empty();
             var myTable = "<table class=' table table-hover' ><thead><tr><th scope='col'>Information</th><th>Val</th> </tr></thead><tbody>";
@@ -98,7 +89,6 @@
             myTable +=  '</tbody></table>' ;
             $('#details').prepend(  myTable ).addClass("container card-body  text-white bg-info mb-3 ");
         }
-
 
         $('#inscription').click(function() {
             window.location.replace("/inscription");

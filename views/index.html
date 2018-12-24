@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <link rel="stylesheet" href="  https://bootswatch.com/4/united/bootstrap.min.css">
+
     <meta charset="utf-8" />
     <title>Socket.io</title>
 </head>
 <body>
-<h1>Le vol !</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Admin</a>
+            </li>
+
+        </ul>
+
+        <button id="inscription" class="btn btn-secondary my-2 my-sm-0" type="submit">Inscription</button>
+
+    </div>
+
+</nav>
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
@@ -13,46 +34,82 @@
     var socket = io.connect('http://localhost:8080');
 
     socket.on('vols', function(message) {
-        console.log('Le serveur a un message pour vous : ' +            message);
+
         afficherLesVols(message);
     })
 
     socket.on('voldetails', function(message) {
-        console.log('Ldetails ' +            message);
-        afficherDetails(message);
+         afficherDetails(message);
+    })
+
+    socket.on('inscription', function(message) {
+        console.log('Le serveur a un message pour vous : ' +  message);
+        window.location.replace(message+'edddd')
     })
     // AafficherLesVols
     function afficherLesVols(results) {
-       var myTable = "<table border='4'> <tr><th>Id</th><th>Orientation</th> </tr>";
+        $('#vols').empty();
+       var myTable = "<table class=' table table-hover'> " +
+                    "<thead><tr>  </th><th scope='col'>IN</th>" +
+                                "<th scope='col'>Vol/Attéri</th>" +
+                                 "<th scope='col' >Num Vol</th> " +
+                                 "<th scope='col' >De/Vers</th>" +
+                                "<th scope='col' >Altitude</th>" +
+                             "</tr> </thead><tbody>";
 
         for(let item of results.keys()){
-            myTable+= "<tr><td>" + results[item].id  + "</td><td> <a onClick='demanderDetails("+ results[item].id + ");' href=#>"+ results[item].orientation+"</a></tr>" ;
+            myTable+= "<tr onClick='demanderDetails("+ results[item].id + ");' class='table-info text-success'> " +
+                        "<td>" + results[item].orientation  + "</td>" +
+                        "<td>" + results[item].altitude  + "</td>" +
+                "<td>" + results[item].num_vol  + "</td>" +
+                "<td>" + results[item].adresse  + "</td>" +
+                                       "<td> <a class='text-success' onClick='demanderDetails("+ results[item].id + ");' href=#>"+ results[item].altitude+"</a></td>" +
+                     "</tr>" ;
         }
-          myTable +=  '</table>' ;
+          myTable +=  '  </tbody></table>' ;
           $('#vols').prepend(  myTable );
       }
 
-    function demanderDetails(volId)
-    {
+
+
+    function demanderDetails(volId) {
         socket.emit('voldetails', volId);
     }
+
     function afficherDetails(results)
     { $('#details').empty();
-        var myTable = "<table border='4'> <tr><th>Information</th><th>Val</th> </tr>";
+        var myTable = "<table class=' table table-hover' ><thead><tr><th scope='col'>Information</th><th>Val</th> </tr></thead><tbody>";
 
         for(let item of results.keys()){
-            myTable+= "<tr><td>" + results[item].id  + "</td><td> <a onClick='demanderDetails("+ results[item].id + ");' href=#>"+ results[item].type+"</a></tr>" ;
+            myTable+= "<tr><td>" + results[item].id  + "</td><td > <a onClick='demanderDetails("+ results[item].id + ");' href=#>"+ results[item].type+"</a></tr>" ;
         }
-        myTable +=  '</table>' ;
-        $('#details').prepend(  myTable );
+        myTable +=  '</tbody></table>' ;
+        $('#details').prepend(  myTable ).addClass("container card-body  text-white bg-info mb-3 ");
     }
 
+
+    $('#inscription').click(function() {
+        window.location.replace("/ddd");
+      //  socket.emit('inscription');
+    });
 
 </script>
 
-<div id="vols">
+
+<div class=" container-fluid  card text-white bg-info mb-3" style="max-width: 50rem;">
+
+    <div class="card-body">
+        <h4 class="card-title">Détails des vols</h4>
+        <div id="vols" class="card-text">
+
+        </div>
 </div>
-<div id="details">
 </div>
+
+        <div   id="details" style="max-width: 20rem;">
+        </div>
+
+
+
 </body>
 </html>

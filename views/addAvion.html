@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" href="  https://bootswatch.com/4/united/bootstrap.min.css">
+
+    <meta charset="utf-8" />
+    <title>Socket.io</title>
+</head>
+<body>
+<div class="jumbotron">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Dashboard</a>
+            </li>
+
+        </ul>
+
+          </div>
+
+</nav>
+    <form>
+        <fieldset>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input id="exampleInputPassword1" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+
+
+
+            <button id="login" type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+    </form>
+
+</div>
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+    var socket = io.connect('http://localhost:8080');
+
+    $('#login').click(function() {
+        socket.emit('loginAdmin', {"admin":"admin","pwd":"pwd"});
+    });
+
+</script>
+
+</body>
+</html>

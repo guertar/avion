@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="  https://bootswatch.com/4/united/bootstrap.min.css">
+    <meta charset="utf-8" />
+    <title>Socket.io</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Dashboard</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron">
+<form>
+    <fieldset>
+        <legend>Inscription</legend>
+         <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input id="exampleInputPassword1" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword2">Confirm password</label>
+            <input id="exampleInputPassword2" type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+            <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+        </div>
+
+        <button id="addClient" class="btn btn-primary">Inscription</button>
+    </fieldset>
+</form>
+
+</div>
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+    var socket = io.connect('http://localhost:8080');
+       $('#addClient').click(function() {
+
+           let email =      $('#exampleInputEmail1').val() ;
+           let pwd =      $('#exampleInputPassword1').val() ;
+
+               socket.emit('inscription', {"userId":"userName","pwd":pwd,"email":email});
+    });
+
+</script>
+
+</body>
+</html>

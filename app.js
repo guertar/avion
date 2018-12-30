@@ -59,7 +59,7 @@ var listener = io.listen(server);
 
 listener.sockets.on('connection', function (socket) {
 
-    function intervalFunc() {
+    function refreshVols() {
         //console.log("fff    ")
         pool.query('select * from vols where depart_date_reelle is not null and arrivee_date_reelle is null', (error, results) => {
             if(error) {
@@ -69,15 +69,21 @@ listener.sockets.on('connection', function (socket) {
     })
         ;
     }
-    setInterval(intervalFunc, 1500);
+    setInterval(refreshVols, 1000);
 
-    pool.query('select * from vols where depart_date_reelle is not null and arrivee_date_reelle is null', (error, results) => {
-        if(error) {
-            throw error
-        }
-        socket.emit('vols', results.rows);
-})
-    ;
+
+    function updateVol() {
+        //console.log("fff    ")
+        pool.query('update  vols set altitude=0 where id = 1', (error, results) => {
+            if(error) {
+                throw error
+            }
+            socket.emit('vols', results.rows);
+    })
+        ;
+    }
+    setInterval(updateVol, 10000);
+
 
     socket.on('voldetails', function (volId) {
 

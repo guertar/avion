@@ -59,6 +59,8 @@
                 "<thead><tr>  </th><th scope='col'>IN</th>" +
                 "<th scope='col'>Vol/Attéri</th>" +
                 "<th scope='col' >Num Vol</th> " +
+                "<th scope='col' >Date</th> " +
+                "<th scope='col' >Heure</th> " +
                 "<th scope='col' >De/Vers</th>" +
                 "<th scope='col' >Altitude</th>" +
                 "</tr> </thead><tbody>";
@@ -68,12 +70,24 @@
                     "<td>" + results[item].orientation  + "</td>" +
                     "<td>" + results[item].altitude  + "</td>" +
                     "<td>" + results[item].num_vol  + "</td>" +
+                    "<td>" +  displayDate(results[item].depart_date_reelle)+ "</td>" +
+                    "<td>" + displayHour(results[item].depart_date_reelle)+ "</td>" +
                     "<td>" + results[item].adresse  + "</td>" +
                     "<td> <a class='text-success' onClick='demanderDetails("+ results[item].id + ");' href=#>"+ results[item].altitude+"</a></td>" +
                     "</tr>" ;
             }
             myTable +=  '  </tbody></table>' ;
             $('#vols').prepend(  myTable );
+        }
+
+        function displayDate(date) {
+        let myDate= new Date(date);
+        return (myDate.getDate()+"/"+myDate.getMonth()+"/"+myDate.getFullYear());
+        }
+
+        function displayHour(date) {
+            let myDate= new Date(date);
+            return (myDate.getHours()+":"+myDate.getMinutes());
         }
 
         function demanderDetails(volId) {

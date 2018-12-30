@@ -87,7 +87,7 @@
 
         function displayHour(date) {
             let myDate= new Date(date);
-            return (myDate.getHours()+":"+myDate.getMinutes());
+            return (myDate.getHours()+":"+ (myDate.getMinutes() > 9 ? myDate.getMinutes() : '0' + myDate.getMinutes()));
         }
 
         function demanderDetails(volId) {
